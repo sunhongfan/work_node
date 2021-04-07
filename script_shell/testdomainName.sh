@@ -9,16 +9,13 @@ echo -e "网站名称\t网站域名\t是否具有AAAA记录\t解析是否需要w
 # 网站是否具有4A记录
 
 web4a(){
-	recode4a=`dig aaaa  $weburl +short | egrep -o "([\da-fA-F0-9]{1,4}(:{1,2})){1,15}[\da-fA-F0-9]{1,4}$"| head -n 1`
-    #recode4a=$(nslookup -type=AAAA -timeout=10 $weburl $v6ns | sed -n /[Aa]ddress/p | egrep -o "([\da-fA-F0-9]{1,4}(:{1,2})){1,15}[\da-fA-F0-9]{1,4}$") 
-    #echo $recode4a
+	recode4a=`dig aaaa  $weburl @114.114.114.114 +short | grep  '^[0-9]' | head -n 1`
     if [ -n "$recode4a" ]; then
         str4a="有"
         addwww="不需要"
     else
         
-	recode4a=`dig aaaa  "www.$weburl" +short | egrep -o "([\da-fA-F0-9]{1,4}(:{1,2})){1,15}[\da-fA-F0-9]{1,4}$" | head -n 1`
-       # recode4a=$(nslookup -type=AAAA -timeout=5 "www.$weburl" $v6ns | sed -n /[Aa]ddress/p | egrep -o "([\da-fA-F0-9]{1,4}(:{1,2})){1,15}[\da-fA-F0-9]{1,4}$")
+	recode4a=`dig aaaa  "www.$weburl" @114.114.114.114 +short | grep  '^[0-9]' | head -n 1` 
         if [ -n "$recode4a" ]; then
             str4a="有"
             addwww="需要"
