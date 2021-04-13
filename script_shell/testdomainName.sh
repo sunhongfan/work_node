@@ -58,7 +58,7 @@ do
 
 ###### 网站名称 网站域名 ########
 
-    weburl=$(echo ${line%%/*} | awk '{print $2}')
+    weburl=$(echo ${test#*//} | cut -d "/" -f1)
     sitename=$(echo $line | awk '{print $1}')
 
     web4a
